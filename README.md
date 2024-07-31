@@ -41,7 +41,7 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
 
 ## ❔Quick Start - How To Use
 The `SeImpersonatePrivilege` right is enabled in your context? With **DeadPotato**, it is possible to achieve maximum privileges on the local system.<br><br>
-The tool will attempt to start an elevated process running in the context of the `NT AUTHORITY\SYSTEM` user, allowing unrestricted access over the machine for critical operations to be freely performed.<br><br>
+The tool will attempt to start an elevated process running in the context of the `NT AUTHORITY\SYSTEM` user by abusing the DCOM's RPCSS flaw in handling OXIDs, allowing unrestricted access over the machine for critical operations to be freely performed.<br><br>
 ⚠️ In the following case, the `-cmd` module is used. Many modules are available for use, such as the `-rev IP:PORT` for spawning an elevated reverse shell, or `-newadmin usr:pass` for creating a new local Administrator user for persistence.
 
 ![cmd_GQJhLcT9IH](https://github.com/user-attachments/assets/b5f71f4a-f8bc-4099-81c5-54bcece7abb6)

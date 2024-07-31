@@ -47,4 +47,6 @@ The tool will attempt to start an elevated process running in the context of the
 ![cmd_GQJhLcT9IH](https://github.com/user-attachments/assets/b5f71f4a-f8bc-4099-81c5-54bcece7abb6)
 
 
-
+## 🏅 Credits
+This Project "DeadPotato" is a tool built on the source code of the masterpiece "GodPotato" by BeichenDream.
+If you like this project, make sure to also go show support to [the original project](https://github.com/BeichenDream/GodPotato)

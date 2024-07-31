@@ -46,7 +46,21 @@ The tool will attempt to start an elevated process running in the context of the
 
 ![cmd_GQJhLcT9IH](https://github.com/user-attachments/assets/b5f71f4a-f8bc-4099-81c5-54bcece7abb6)
 
+#### Verify SeImpersonatePrivilege rights
+In order to use DeadPotato, the SeImpersonatePrivilege right must be enabled in the current context. In order to verify this, the `whoami /priv` command can be executed.
+If there privilege is disabled, exploitation is not possible in the current context.
+```
+C:\Users\lypd0> whoami /priv
 
-## 🏅 Credits
+<...SNIP...>
+SeImpersonatePrivilege    Impersonate a client after authentication     Enabled
+<...SNIP...>
+```
+
+
+### 🏅 Credits
 This Project "DeadPotato" is a tool built on the source code of the masterpiece "GodPotato" by BeichenDream.
 If you like this project, make sure to also go show support to [the original project](https://github.com/BeichenDream/GodPotato)
+
+### License
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/apache-2.0/). Please review the LICENSE file for more details.

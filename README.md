@@ -58,6 +58,9 @@ SeImpersonatePrivilege    Impersonate a client after authentication     Enabled
 ```
 
 
+## 🐚 Getting an Elevated Reverse Shell
+![cmd_XQASCL7Lz6](https://github.com/user-attachments/assets/201fa7cb-4253-47e4-8beb-1ae781fc481c)
+
 ### 🏅 Credits
 This Project "DeadPotato" is a tool built on the source code of the masterpiece "GodPotato" by BeichenDream.
 If you like this project, make sure to also go show support to [the original project](https://github.com/BeichenDream/GodPotato)

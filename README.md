@@ -7,7 +7,7 @@
   <a href="#"><img alt="languageBDG" src="https://img.shields.io/badge/LANGUAGE-CSHARP-green?style=for-the-badge"></a>
 
 <h3 align="center">🚨 SAM Dump Module Now Available! 🚨</h3>
-<h4 align="center"><i>❗Usage of this program under an unauthorized context is strictly forbidden. The author(s) of DeadPotato do not take any responsibility for any unintentional harm caused to systems. Use with caution. ❗</i></h4>
+<h4 align="center"><i>❗Usage of this program under an unauthorized context is strictly forbidden. The author(s) of DeadPotato do not take any responsibility for any harm caused to systems. Use with caution. ❗</i></h4>
 
 ```
 C:\Users\lypd0> GodPotato.exe

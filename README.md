@@ -16,7 +16,7 @@ C:\Users\lypd0> GodPotato.exe
     ⣴⣿⣿⣿⣿⣿⣿⣦   | \ _  _  _||_) _ _|_ _ _|_ _
     ⣿⣿⣿⣿⣿⣿⣿⣿   |_/(/_(_|(_||  (_) |_(_| |_(_)
     ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/lypd0
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: 1.1 =-
+    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: 1.2 =-
         ⠈⠁⠀⠀⠀
 
 _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
@@ -46,7 +46,7 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
    - sharphound: Attempts to collect domain data for BloodHound.
 ```
 
-## ❔Quick Start - How To Use
+## ❔ Quick Start - How To Use
 The `SeImpersonatePrivilege` right is enabled in your context? With **DeadPotato**, it is possible to achieve maximum privileges on the local system.<br><br>
 The tool will attempt to start an elevated process running in the context of the `NT AUTHORITY\SYSTEM` user by abusing the DCOM's RPCSS flaw in handling OXIDs, allowing unrestricted access over the machine for critical operations to be freely performed.<br><br>
 ⚠️ In the following case, the `-cmd` module is used. Many modules are available for use, such as the `-rev IP:PORT` for spawning an elevated reverse shell, `-newadmin usr:pass` for creating a new local Administrator user for persistence, or `-mimi sam` for dumping SAM hashes.

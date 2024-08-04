@@ -72,5 +72,9 @@ SeImpersonatePrivilege    Impersonate a client after authentication     Enabled
 This Project "DeadPotato" is a tool built on the source code of the masterpiece "GodPotato" by BeichenDream.
 If you like this project, make sure to also go show support to [the original project](https://github.com/BeichenDream/GodPotato)
 
+BeichenDream,
+Benjamin DELPY `gentilkiwi`,
+BloodHound Developers.
+
 ### License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/apache-2.0/). Please review the LICENSE file for more details.

@@ -1400,7 +1400,7 @@ namespace SharpToken
             }
             else
             {
-                consoleWriter.WriteLine($"[!] Cannot create process Win32Error:{Marshal.GetLastWin32Error()}");
+                UI.printColor($"\n(<darkred>-</darkred>) Cannot create process. Win32Error: {Marshal.GetLastWin32Error()}");
             }
         end:
             if (childProcessReadStream != null)

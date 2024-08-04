@@ -89,5 +89,8 @@
   <ItemGroup>
     <None Include="Resources\mimikatz.exe" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SharpHound.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

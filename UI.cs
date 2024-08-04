@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,6 +11,11 @@ namespace DeadPotato
 {
     internal class UI
     {
+        static bool IsWindows10()
+        {
+            return RuntimeInformation.OSDescription.Contains("Windows 10."); // Very quick, so the banner does not cry over win10
+        }
+
         public static void printColor(string input)
         {
             // Define a dictionary to map color names to ConsoleColor
@@ -82,16 +88,8 @@ namespace DeadPotato
         public static void printHelp()
         {
             Console.OutputEncoding = Encoding.UTF8;
+            printBanner();
             printColor(@"
-
-    ⠀⢀⣠⣤⣤⣄⡀⠀   <darkred> _           _ </darkred>
-    ⣴⣿⣿⣿⣿⣿⣿⣦   <darkred>| \ _  _  _||_) _ _|_ _ _|_ _ </darkred>
-    ⣿⣿⣿⣿⣿⣿⣿⣿   <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>
-    ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/<white>lypd0</white>
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: <green>1.1</green> =-       
-    ⠀⠀⠀⠈⠁⠀⠀⠀
-
-_,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
 
  (<darkred>*</darkred>) Example Usage(s):
 
@@ -102,8 +100,9 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
    -> deadpotato.exe -exe paylod.exe
    -> deadpotato.exe -newadmin lypd0:DeadPotatoRocks1
    -> deadpotato.exe -shell
-   -> deadpotato.exe -mimisam
+   -> deadpotato.exe -mimi sam
    -> deadpotato.exe -defender off
+   -> deadpotato.exe -sharphound
 
  (<darkred>*</darkred>) Available Modules:
    
@@ -112,26 +111,36 @@ _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
    - exe: Execute a program with NT AUTHORITY\SYSTEM privileges (Does not support interactivity).
    - newadmin: Create a new administrator user on the local system.
    - shell: Manages to achieve a semi-interactive shell (NOTE: Very bad OpSec!)
-   - mimisam: Attempts to dump the SAM database with Mimikatz. (NOTE: This will write mimikatz to disk!)
+   - mimi: Attempts to dump SAM/LSA/SECRETS with Mimikatz. (NOTE: This will write mimikatz to disk!)
    - defender: Either enables or disables Windows Defender's real-time protection.
+   - sharphound: Attempts to collect domain data for BloodHound.
+
 ");
 
         }
         public static void printBanner()
         {
             Console.OutputEncoding = Encoding.UTF8;
-            printColor(@"
+
+            if (IsWindows10())
+            {
+                printColor($"      _.--,_\n   .-'      '-.         <darkred> _           _ </darkred>\n  /            \\        <darkred>| \\ _  _  _||_) _ _|_ _ _|_ _ </darkred>\n '          _.  '       <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>\n \\      \"\"\"\" /  ~(      Open Source @ github.com/<white>lypd0</white>\n  '=,,_ =\\__ `  &             -= Version: <green>{Program.version}</green> =-\n        \"\"  \"\"'; \\\\\\ \n\n\n_,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_\n\n");
+            }
+            else
+            {
+                printColor($@"
 
     ⠀⢀⣠⣤⣤⣄⡀⠀   <darkred> _           _ </darkred>
     ⣴⣿⣿⣿⣿⣿⣿⣦   <darkred>| \ _  _  _||_) _ _|_ _ _|_ _ </darkred>
     ⣿⣿⣿⣿⣿⣿⣿⣿   <darkred>|_/(/_(_|(_||  (_) |_(_| |_(_)</darkred>
     ⣇⠈⠉⡿⢿⠉⠁⢸   Open Source @ github.com/<white>lypd0</white>
-    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: <green>1.1</green> =-       
+    ⠙⠛⢻⣷⣾⡟⠛⠋         -= Version: <green>{Program.version}</green> =-       
     ⠀⠀⠀⠈⠁⠀⠀⠀
 
 _,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,_
 
 ");
+            }
         }
     }
 }

